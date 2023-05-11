@@ -1,0 +1,22 @@
+name: Slack Notifications
+
+on:
+  push:
+    branches:
+      - main  # Replace with your desired branch name(s)
+
+jobs:
+  slackNotification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Notify Slack
+        uses: rtCamp/action-slack-notify@v2.0.0
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          status: ${{ job.status }}
+          mention: here
